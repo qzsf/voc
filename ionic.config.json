@@ -1,0 +1,7 @@
+{
+  "name": "voc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
