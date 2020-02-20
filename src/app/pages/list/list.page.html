@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>Alphabet</ion-list-header>
+    <!-- <ion-item *ngFor="let letter of letters" [routerLink]="['/main/tabs/letter', letter]"> -->
+    <ion-item *ngFor="let letter of letters" routerLink="/main/tabs/list/letter/{{letter}}">
+      <ion-label><span class="letter">{{letter}}</span></ion-label>
+      <ion-badge color="medium">80</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

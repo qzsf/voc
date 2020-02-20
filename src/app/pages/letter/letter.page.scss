@@ -1,0 +1,15 @@
+.content{
+    height: 100%;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    position: relative;
+}
+.word{
+    scroll-snap-align: start;
+    scroll-margin-top: 12px;
+    min-height: 200px;
+}
+ol{
+    margin-top: 0;
+    padding-inline-start: 20px;
+}
