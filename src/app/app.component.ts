@@ -29,8 +29,11 @@ export class AppComponent {
       this.storage.get('dictionary')
         .then(res => {
           if (!res) {
-            import('./providers/data/a')
-              .then(a => this.storage.set('dictionary', a.default));
+            this.storage.set('dictionary', {});
+            // import('./providers/data/a')
+            //   .then(a => dictionary.a = a);
+            // import('./providers/data/a')
+            //   .then(b => dictionary.b = b);
             // .then(z=> {console.log(z.default)});
           }
         }
