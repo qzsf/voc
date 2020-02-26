@@ -16,50 +16,40 @@
     </ion-card>
   </div>
   <div class="content" *ngIf="!loading">
-    <ion-list>
-      <ion-item-sliding class="word" *ngFor="let item of wordList">
-        <ion-item>
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title>{{item.key}}</ion-card-title>
-              <!-- <ion-card-subtitle *ngIf="item.value.MEANINGS">{{item.value}}</ion-card-subtitle> -->
-            </ion-card-header>
-            <ion-card-content>
-              <div>
-                <ol>
-                  <li *ngFor="let ite of item.value.MEANINGS | keyvalue">
-                    <p *ngFor="let m of ite.value">
-                      <span *ngIf="m?.length>0">{{m}}.</span>
-                    </p>
-                  </li>
-                </ol>
-              </div>
-              <div *ngIf="item.value.ANTONYMS?.length>0">
-                <p>ANTONYMS:
-                  <ion-chip outline color="secondary" *ngFor="let ant of item.value.ANTONYMS">
-                    <ion-label>{{ant}}</ion-label>
-                  </ion-chip>
-                </p>
-              </div>
-              <div *ngIf="item.value.SYNONYMS?.length>0">
-                <p>SYNONYMS:
-                  <span *ngFor="let syn of item.value.SYNONYMS">
-                    <ion-chip outline color="secondary" *ngIf="syn.toLowerCase() !== item.key.toLowerCase()">
-                      <ion-label>{{syn}}</ion-label>
-                    </ion-chip>
-                  </span>
+    <ion-card class="word" *ngFor="let item of wordList">
+      <ion-card-header>
+        <ion-card-title>{{item.key}}</ion-card-title>
+        <!-- <ion-card-subtitle *ngIf="item.value.MEANINGS">{{item.value}}</ion-card-subtitle> -->
+      </ion-card-header>
+      <ion-card-content>
+        <div>
+          <ol>
+            <li *ngFor="let ite of item.value.MEANINGS | keyvalue">
+              <p *ngFor="let m of ite.value">
+                <span *ngIf="m?.length>0">{{m}}.</span>
+              </p>
+            </li>
+          </ol>
+        </div>
+        <div *ngIf="item.value.ANTONYMS?.length>0">
+          <p>ANTONYMS:
+            <ion-chip outline color="secondary" *ngFor="let ant of item.value.ANTONYMS">
+              <ion-label>{{ant}}</ion-label>
+            </ion-chip>
+          </p>
+        </div>
+        <div *ngIf="item.value.SYNONYMS?.length>0">
+          <p>SYNONYMS:
+            <span *ngFor="let syn of item.value.SYNONYMS">
+              <ion-chip outline color="secondary" *ngIf="syn.toLowerCase() !== item.key.toLowerCase()">
+                <ion-label>{{syn}}</ion-label>
+              </ion-chip>
+            </span>
 
-                </p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </ion-item>
-        <ion-item-options side="end">
-          <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
   </div>
   <!-- <div class="content" *ngIf="wordList$ | async as wordList">
