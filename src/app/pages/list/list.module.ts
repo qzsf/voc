@@ -8,11 +8,14 @@ import { ListPageRoutingModule } from './list-routing.module';
 
 import { ListPage } from './list.page';
 
+import {SearchPageModule} from '../search/search.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SearchPageModule,
     ListPageRoutingModule
   ],
   declarations: [ListPage]

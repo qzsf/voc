@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SearchPage } from '../search/search.page';
 
 @Component({
   selector: 'app-list',
@@ -8,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class ListPage implements OnInit {
   letters = "abcdefghijklmnopqrstuvwxyz".split('');
 
-  constructor() { }
+  constructor(public modalCtl: ModalController) { }
 
   ngOnInit() {
+  }
+
+  async showModal(){
+    const modal = await this.modalCtl.create({
+      component: SearchPage
+    });
+    return await modal.present();
   }
 
 }
