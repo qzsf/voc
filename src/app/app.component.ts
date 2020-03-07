@@ -26,18 +26,18 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.get('dictionary')
-        .then(res => {
-          if (!res) {
-            this.storage.set('dictionary', {});
-            // import('./providers/data/a')
-            //   .then(a => dictionary.a = a);
-            // import('./providers/data/a')
-            //   .then(b => dictionary.b = b);
-            // .then(z=> {console.log(z.default)});
-          }
-        }
-        )
+      // this.storage.get('dictionary')
+      //   .then(res => {
+      //     if (!res) {
+      //       this.storage.set('dictionary', {});
+      //       // import('./providers/data/a')
+      //       //   .then(a => dictionary.a = a);
+      //       // import('./providers/data/a')
+      //       //   .then(b => dictionary.b = b);
+      //       // .then(z=> {console.log(z.default)});
+      //     }
+      //   }
+      //   )
     });
   }
 }

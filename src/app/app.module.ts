@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DictionaryService } from './services/dictionary.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,15 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // init the app with data
+    DictionaryService,
+    {
+      provide:APP_INITIALIZER,
+      useFactory: (ds: DictionaryService) => function() {return ds.init()},
+      deps: [DictionaryService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

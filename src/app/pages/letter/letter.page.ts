@@ -34,7 +34,7 @@ import { Storage } from '@ionic/storage';
 })
 export class LetterPage implements OnInit {
   letter: string;
-  dictionary: any = {};
+  sat: any = [];
   wordList = [];
   // wordList$: Observable<any[]>;
   defaultHref: string;
@@ -43,7 +43,7 @@ export class LetterPage implements OnInit {
   collapseState = 'in';
   outState = 'in';
 
-  loading = false;
+  loading = true;
 
   // for dblclick
   timeStamp: number = 0;
@@ -59,47 +59,23 @@ export class LetterPage implements OnInit {
     this._route.paramMap.subscribe(
       params => {
         this.letter = params.get('id');
-        // console.log(this.letter)
-        // this.wordList$ = this._dictionary.getWords$;
-        // this.wordList$.subscribe();
-        // const arr = Object.keys(z).map(k => ({key:k,value:z[k]}));
-        // console.log(arr.find(w=>w.key==='ZEBRA'));
-
-        // 
-        this.storage.get('dictionary').then(res => {
-          if (res[this.letter]) {
-            this.wordList = res[this.letter].filter(w => w.value.SAT);
-          } else {
-            this.loading = true;
-          }
-          // console.log(this.wordList)
-          // const arr = Object.keys(res).map(k => ({ key: k, value: res[k] }));
-          // this.wordList = res.filter(w => w.value.SAT);
-          // console.log(this.wordList)
-        });
       }
     )
   }
-  ionViewDidEnter() {
-    this.storage.get('dictionary').then(res => {
-      if (this.loading) {
-        console.log('import ')
-        import(`../../providers/data/${this.letter}`)
-          .then(w => {
-            // console.log(w.default);
-            this.wordList = w.default.filter(w => w.value.SAT);
-            this.loading = false;
-            const newD = { ...res };
-            newD[this.letter] = this.wordList;
-            this.storage.set('dictionary', newD);
-          });
-      }
-      // console.log(this.wordList)
-      // const arr = Object.keys(res).map(k => ({ key: k, value: res[k] }));
-      // this.wordList = res.filter(w => w.value.SAT);
-      // console.log(this.wordList)
-    });
 
+  async getList(letter) {
+    this.sat = await this.storage.get('sat');
+    const notDone = this.sat.filter(i => i.done === false);
+    // get a list of words start with "letter"
+    const list = notDone.filter(w => w.word[0] === letter).map(w => w.word.toUpperCase());
+    const dictionary = await this.storage.get('dictionary');
+    this.wordList = dictionary[letter.toLowerCase()].filter(i =>
+      list.includes(i.key));
+    this.loading = false;
+  }
+
+  ionViewDidEnter() {
+    this.getList(this.letter);
     this.defaultHref = `/main/tabs/list`;
   }
 
@@ -118,9 +94,17 @@ export class LetterPage implements OnInit {
       this.remove(item);
     }
   }
-
+  
+  // remove and update the "sat" storage
   remove(item) {
+    // item: {key: "ABYSMAL", value: {…}}
+    let key = item.key.toLowerCase();
+    key = key.charAt(0).toUpperCase() + key.slice(1);
     this.wordList = this.wordList.filter(w => w.key !== item.key);
+    const newSat = [...this.sat];
+    let word = newSat.find(w=>w.word===key);
+    word.done = true;
+    this.storage.set('sat', newSat);
   }
 
 
